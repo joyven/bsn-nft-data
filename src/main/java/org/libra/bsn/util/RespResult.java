@@ -1,4 +1,4 @@
-package org.libra.util;
+package org.libra.bsn.util;
 
 /**
  * @author xianhu.wang

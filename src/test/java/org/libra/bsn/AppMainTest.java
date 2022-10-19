@@ -1,4 +1,4 @@
-package org.libra;
+package org.libra.bsn;
 
 import static org.junit.Assert.assertTrue;
 

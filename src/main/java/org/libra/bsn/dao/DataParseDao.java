@@ -1,4 +1,4 @@
-package org.libra.dao;
+package org.libra.bsn.dao;
 
 /**
  * @author xianhu.wang

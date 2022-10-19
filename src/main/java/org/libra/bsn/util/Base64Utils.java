@@ -1,4 +1,4 @@
-package org.libra.util;
+package org.libra.bsn.util;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
