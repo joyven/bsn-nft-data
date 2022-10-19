@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.libra.bsn.orm.mapper.BsnTxtDataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.libra.bsn.orm.entity.BsnTxtData">
+        <id column="id" property="id" />
+        <result column="time" property="time" />
+        <result column="height" property="height" />
+        <result column="tx_hash" property="txHash" />
+        <result column="status" property="status" />
+        <result column="type" property="type" />
+        <result column="signers" property="signers" />
+        <result column="msgs" property="msgs" />
+        <result column="fee" property="fee" />
+        <result column="monikers" property="monikers" />
+        <result column="addrs" property="addrs" />
+        <result column="contract_addrs" property="contractAddrs" />
+        <result column="gmt_create" property="gmtCreate" />
+        <result column="gmt_modify" property="gmtModify" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, `time`, height, tx_hash, `status`, `type`, signers, msgs, fee, monikers, addrs, contract_addrs, gmt_create, gmt_modify
+    </sql>
+
+</mapper>

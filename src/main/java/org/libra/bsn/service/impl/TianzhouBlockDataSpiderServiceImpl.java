@@ -65,7 +65,7 @@ public class TianzhouBlockDataSpiderServiceImpl implements TianzhouBlockDataSpid
             OkHttpUtils okHttpUtils = OkHttpUtils.builder().url(url);
             headers.forEach((k, v) -> {
                 okHttpUtils.addHeader(k, v);
-                System.out.println(">>>>>key=" + k + ", value=" + v);
+//                System.out.println(">>>>>key=" + k + ", value=" + v);
             });
             map.forEach((k, v) -> {
                 okHttpUtils.addParam(k, "" + v);
