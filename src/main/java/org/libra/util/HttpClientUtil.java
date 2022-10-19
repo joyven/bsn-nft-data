@@ -160,8 +160,6 @@ public class HttpClientUtil {
                 .evictExpiredConnections()
                 // 定期回收空闲连接
                 .evictIdleConnections(MAX_IDLE_TIMEOUT, TimeUnit.SECONDS)
-                // 设置默认请求配置
-                .setDefaultRequestConfig(buildRequestConfig(DEFAULT_SO_TIMEOUT))
                 /**
                  * 默认的话，是从response里头读timeout参数的，没有读到则设置为-1，这个代表无穷，这样设置是有点问题了，
                  * 如果是https链接的话，则可能会经常报 Read Time out 因此重新设定时间
