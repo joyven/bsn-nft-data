@@ -1,8 +1,11 @@
 package org.libra.bsn.orm.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -11,6 +14,10 @@ import java.util.Date;
  **/
 @Data
 public class BaseEntity<T> implements Serializable {
-    private Date gmtCreate;
-    private Date gmtModify;
+    @ApiModelProperty("创建时间")
+    @TableField("gmt_create")
+    private LocalDateTime gmtCreate;
+    @ApiModelProperty("修改时间")
+    @TableField("gmt_modify")
+    private LocalDateTime gmtModify;
 }

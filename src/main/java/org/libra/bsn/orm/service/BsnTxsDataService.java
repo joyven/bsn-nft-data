@@ -1,6 +1,6 @@
 package org.libra.bsn.orm.service;
 
-import org.libra.bsn.orm.entity.BsnTxtData;
+import org.libra.bsn.orm.entity.BsnTxsDataEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author zhoujunwen
- * @since 2022-10-19 10:32:30
+ * @since 2022-10-19 11:26:08
  */
-public interface BsnTxtDataService extends IService<BsnTxtData> {
+public interface BsnTxsDataService extends IService<BsnTxsDataEntity> {
 
 }

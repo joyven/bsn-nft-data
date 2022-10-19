@@ -16,7 +16,7 @@ import java.util.HashMap;
  * @author xianhu.wang
  * @date 2022年07月20日 11:38 上午
  */
-@RestController
+//@RestController
 public class DataParseController {
 
     @Autowired
@@ -86,10 +86,4 @@ public class DataParseController {
 //            System.out.println("关注=>" + span.get(1).text());
 //        }
 //    }
-
-    public static void main(String[] args) {
-        String url = "https://www.jianshu.com/p/9e69387f60f4";
-
-        System.out.println(HttpClientUtil.sendPost(url, new HashMap<>(), 1000));
-    }
 }
