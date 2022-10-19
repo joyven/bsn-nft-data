@@ -1,8 +1,8 @@
-package org.libra.controller.data.parse;
+package org.libra.bsn.controller.data.parse;
 
-import org.libra.service.DataParseService;
-import org.libra.util.HttpClientUtil;
-import org.libra.util.RespResult;
+import org.libra.bsn.service.TianzhouBlockDataSpiderService;
+import org.libra.bsn.util.HttpClientUtil;
+import org.libra.bsn.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -21,14 +20,14 @@ import java.util.HashMap;
 public class DataParseController {
 
     @Autowired
-    private DataParseService dataParseService;
+    private TianzhouBlockDataSpiderService tianzhouBlockDataSpiderService;
 
     @RequestMapping("/get/origin/source")
     public RespResult<String> getOriginSource(@RequestParam("url") String url,
                                               @RequestParam("start") Integer start,
                                               @RequestParam("end") Integer end) throws MalformedURLException {
 
-        boolean flag = dataParseService.parseOriginSource(url,start,end);
+        boolean flag = tianzhouBlockDataSpiderService.spider(url,start,end);
 
         return RespResult.success();
     }

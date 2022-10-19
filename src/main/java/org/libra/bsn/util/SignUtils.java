@@ -1,4 +1,4 @@
-package org.libra.util;
+package org.libra.bsn.util;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;

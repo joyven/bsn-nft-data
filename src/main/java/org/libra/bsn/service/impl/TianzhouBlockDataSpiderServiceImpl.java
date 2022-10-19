@@ -1,9 +1,9 @@
-package org.libra.service.impl;
+package org.libra.bsn.service.impl;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.libra.service.DataParseService;
-import org.libra.util.OkHttpUtils;
-import org.libra.util.SignUtils;
+//import org.apache.commons.lang3.time.DateFormatUtils;
+import org.libra.bsn.service.TianzhouBlockDataSpiderService;
+import org.libra.bsn.util.OkHttpUtils;
+import org.libra.bsn.util.SignUtils;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
@@ -19,11 +19,11 @@ import java.util.*;
  * @date 2022年07月20日 11:52 上午
  */
 @Service
-public class DataParseServiceImpl implements DataParseService {
+public class TianzhouBlockDataSpiderServiceImpl implements TianzhouBlockDataSpiderService {
     private static final String TIANZHOU_USERNAME = "hmac-tianzhou";
 
     @Override
-    public boolean parseOriginSource(String url, Integer start, Integer end) throws MalformedURLException {
+    public boolean spider(String url, Integer start, Integer end) throws MalformedURLException {
 
         for (int i = start; i <= end; i++) {
             Map<String, Object> map = new HashMap<String, Object>(2);
@@ -57,7 +57,6 @@ public class DataParseServiceImpl implements DataParseService {
             headers.put("accept-language", "zh-CN,zh;q=0.9");
             headers.put("Content-Type","application/json");
             headers.put(":authority", "backend.tianzhou.wenchang.bianjie.ai");
-//            headers.put("Host", "backend.tianzhou.wenchang.bianjie.ai");
             headers.put(":method", "GET");
             headers.put(":path", "/nodejs/txs?pageNum="+ i + "&pageSize=10");
             headers.put(":scheme", "https");
@@ -79,10 +78,15 @@ public class DataParseServiceImpl implements DataParseService {
         return false;
     }
 
+    @Override
+    public boolean spiderByPagation() {
+        return false;
+    }
+
     public static void main(String[] args) throws MalformedURLException {
         String url = "https://backend.tianzhou.wenchang.bianjie.ai/nodejs/txs";
 
-        DataParseServiceImpl dataParseService = new DataParseServiceImpl();
-        dataParseService.parseOriginSource(url, 1, 1);
+        TianzhouBlockDataSpiderServiceImpl dataParseService = new TianzhouBlockDataSpiderServiceImpl();
+        dataParseService.spider(url, 1, 1);
     }
 }
