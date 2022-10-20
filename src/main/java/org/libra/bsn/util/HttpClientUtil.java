@@ -1,14 +1,18 @@
 package org.libra.bsn.util;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.NameValuePair;
+import org.apache.http.ProtocolVersion;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.config.*;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
@@ -32,6 +36,7 @@ import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -48,15 +53,15 @@ public class HttpClientUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
 
-    private static final int PM_MAX_CONN = 100;
+    private static final int PM_MAX_CONN = 200;
 
-    private static final int PM_MAX_PER_ROUTE = 50;
+    private static final int PM_MAX_PER_ROUTE = 100;
 
-    private static final int CONNECT_TIMEOUT = 500;
+    private static final int CONNECT_TIMEOUT = 2000;
 
-    private static final int CONNECT_REQUEST_TIMEOUT = 500;
+    private static final int CONNECT_REQUEST_TIMEOUT = 2000;
 
-    private static final int SO_TIMEOUT = 500;
+    private static final int SO_TIMEOUT = 5000;
 
     private static final long MAX_IDLE_TIMEOUT = 60;
 
@@ -66,7 +71,7 @@ public class HttpClientUtil {
 
     private static CloseableHttpClient httpClient;
 
-    private static final int DEFAULT_SO_TIMEOUT = 200;
+    private static final int DEFAULT_SO_TIMEOUT = 2000;
 
     // 池化管理
 
@@ -124,22 +129,6 @@ public class HttpClientUtil {
             POOL_CONN_MANAGER.closeIdleConnections(IDLE_TIMEOUT, TimeUnit.SECONDS);
             POOL_CONN_MANAGER.closeExpiredConnections();
 
-            // 此处解释下MaxtTotal和DefaultMaxPerRoute的区别：
-
-            // 1、MaxtTotal是整个池子的大小；
-
-            // 2、DefaultMaxPerRoute是根据连接到的主机对MaxTotal的一个细分；比如：
-
-            // MaxtTotal=400 DefaultMaxPerRoute=200
-
-            // 而我只连接到http://www.abc.com时，到这个主机的并发最多只有200；而不是400；
-
-            // 而我连接到http://www.bac.com 和
-
-            // http://www.ccd.com时，到每个主机的并发最多只有200；即加起来是400（但不能超过400）；所以起作用的设置是DefaultMaxPerRoute
-
-            // 初始化httpClient
-
             httpClient = getConnection();
 
         } catch (NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
@@ -187,7 +176,6 @@ public class HttpClientUtil {
      * default request config
      *
      * @param soTimeout
-     *
      * @return
      */
     public static RequestConfig buildRequestConfig(int soTimeout) {
@@ -218,7 +206,6 @@ public class HttpClientUtil {
      *
      * @param url
      * @param params
-     *
      * @return
      */
     public static String sendPost(String url, Map<String, Object> params) {
@@ -231,7 +218,6 @@ public class HttpClientUtil {
      * @param url
      * @param params
      * @param socketTimeout
-     *
      * @return
      */
     public static String sendPost(String url, Map<String, Object> params, int socketTimeout) {
@@ -251,7 +237,6 @@ public class HttpClientUtil {
      * @param url
      * @param params
      * @param socketTimeout
-     *
      * @return
      */
     public static String sendPost(String url, List<NameValuePair> params, int socketTimeout) {
@@ -278,7 +263,6 @@ public class HttpClientUtil {
      * @param url
      * @param params
      * @param socketTimeout
-     *
      * @return
      */
     public static String sendPostWithJSON(String url, String params, Integer socketTimeout) {
@@ -310,20 +294,21 @@ public class HttpClientUtil {
 
     public static String sendGet(String url, Map<String, String> headers, Map<String, Object> params) {
 
-        // *) 构建GET请求头
-        String apiUrl = getUrlWithParams(url, params);
-        HttpGet httpGet = new HttpGet(apiUrl);
-        httpGet.setProtocolVersion(new HttpVersion(2, 0));
-
-        // *) 设置header信息
+        RequestBuilder requestGetBuilder = RequestBuilder.get(url);
+        //requestGetBuilder.setVersion( new HttpVersion(1, 1));
         if (headers != null && headers.size() > 0) {
             for (Map.Entry<String, String> entry : headers.entrySet()) {
-                httpGet.addHeader(entry.getKey(), entry.getValue());
+                requestGetBuilder.addHeader(entry.getKey(), entry.getValue());
+            }
+        }
+        if (MapUtils.isNotEmpty(params)){
+            for (Map.Entry<String, Object> entry:params.entrySet()){
+                requestGetBuilder.addParameter(entry.getKey(),entry.getValue().toString());
             }
         }
         try {
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
-            return httpClient.execute(httpGet, responseHandler);
+            return httpClient.execute(requestGetBuilder.build(), responseHandler);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -333,6 +318,10 @@ public class HttpClientUtil {
     private static String getUrlWithParams(String url, Map<String, Object> params) {
         boolean first = true;
         StringBuilder sb = new StringBuilder(url);
+
+        if (params == null) {
+            return sb.toString();
+        }
         for (String key : params.keySet()) {
             char ch = '&';
             if (first) {
