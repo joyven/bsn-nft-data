@@ -54,7 +54,6 @@ public class SignUtils {
     public static String authorization(byte[] sig, String username) {
         String algorithm = "hmac-sha256";
         String sign = Base64Utils.encode(sig);
-        System.out.println(sign);
         return "hmac username=\"" + username + "\", algorithm=\""
                 + algorithm + "\", headers=\"x-date request-line\", signature=\""
                 + sign + "\"";

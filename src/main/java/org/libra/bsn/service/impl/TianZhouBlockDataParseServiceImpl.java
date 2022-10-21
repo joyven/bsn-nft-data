@@ -90,7 +90,7 @@ public class TianZhouBlockDataParseServiceImpl implements TianZhouBlockDataParse
         }
         nftInfo.setNtfName(nftName);
         nftInfo.setNtfId(msg.getString(BSNConstants.ID));
-        nftInfo.setCategoryId(msgs.getString(BSNConstants.DENOM));
+        nftInfo.setCategoryId(msg.getString(BSNConstants.DENOM));
         nftInfo.setCategoryName(msg.getString(BSNConstants.DENOM_NAME));
         String url = msg.getString(BSNConstants.URI);
 
@@ -123,7 +123,7 @@ public class TianZhouBlockDataParseServiceImpl implements TianZhouBlockDataParse
             nftTradingInfo.setTradingHash(origin.getString(BSNConstants.TX_HASH));
             nftTradingInfo.setTradingType(msgs.getString(BSNConstants.TYPE));
             nftTradingInfo.setNtfId(msg.getString(BSNConstants.ID));
-            nftTradingInfo.setCategoryId(msgs.getString(BSNConstants.DENOM));
+            nftTradingInfo.setCategoryId(msg.getString(BSNConstants.DENOM));
             nftTradingInfo.setHeight(origin.getInteger(BSNConstants.HEIGHT));
             nftTradingInfo.setEnergyValue(fee.getInteger(BSNConstants.GAS));
             nftTradingInfo.setOccurTime(new Timestamp(origin.getInteger(BSNConstants.TIME) * 1000L));
@@ -150,7 +150,7 @@ public class TianZhouBlockDataParseServiceImpl implements TianZhouBlockDataParse
      */
     private static BigDecimal getRandomRedPacketBetweenMinAndMax() {
         BigDecimal min = new BigDecimal(1);
-        BigDecimal max = new BigDecimal(10000);
+        BigDecimal max = new BigDecimal(1000);
         float minF = min.floatValue();
         float maxF = max.floatValue();
         //生成随机数
