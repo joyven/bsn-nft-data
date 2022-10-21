@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static org.libra.bsn.constant.BSNConstants.CODE;
 import static org.libra.bsn.constant.BSNConstants.DATA;
@@ -55,6 +56,13 @@ public class TianZhouBlockDataParseServiceImpl implements TianZhouBlockDataParse
                 parameter, "get", "/nodejs/txs/" + txHash + "");
 
         String response = HttpClientUtil.sendGet("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/txs/" + txHash + "", headers, parameter);
+
+        // 每次休眠100ms
+        try {
+            TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         if (!StringUtils.isNotBlank(response) || !response.contains(DATA)
                 || !response.contains(CODE)) {

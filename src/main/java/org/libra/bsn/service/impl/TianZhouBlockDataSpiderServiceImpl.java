@@ -53,6 +53,13 @@ public class TianZhouBlockDataSpiderServiceImpl implements WenChangDataSpiderSer
 
                 String response = HttpClientUtil.sendGet("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/txs/blocks", headers, parameter);
 
+                // 每次休眠100ms
+                try {
+                    TimeUnit.MILLISECONDS.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 if (!StringUtils.isNotBlank(response) || !response.contains(DATA)
                         || !response.contains(CODE)) {
                     // 进行下一个高度
@@ -77,7 +84,7 @@ public class TianZhouBlockDataSpiderServiceImpl implements WenChangDataSpiderSer
                 }
                 try {
                     // 每次休眠10s
-                    TimeUnit.MILLISECONDS.sleep(5000);
+                    TimeUnit.MILLISECONDS.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
