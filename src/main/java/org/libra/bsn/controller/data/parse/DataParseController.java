@@ -32,4 +32,19 @@ public class DataParseController {
 
         return RespResult.success();
     }
+
+    /**
+     * 指定抓取天舟块数据
+     * @param heightStart 开始
+     * @param heightEnd   结束
+     * @return
+     */
+    @RequestMapping("/spider/source")
+    public RespResult<String> spiderSourceTZBlock(@RequestParam("heightStart") Integer heightStart,
+                                                  @RequestParam("heightEnd") Integer heightEnd) {
+
+        boolean flag = tianZhouBlockDataSpiderService.spiderSourceBlock(heightStart, heightEnd);
+
+        return RespResult.success();
+    }
 }

@@ -14,4 +14,9 @@ public class TianHeBlockDataSpiderServiceImpl implements WenChangDataSpiderServi
     public boolean spider(String url, Integer start, Integer end) {
         return false;
     }
+
+    @Override
+    public boolean spiderSourceBlock(Integer start, Integer end) {
+        return false;
+    }
 }

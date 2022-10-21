@@ -1,15 +1,15 @@
-package org.libra.entity;
+package org.libra.bsn.entity;
 
 import lombok.Data;
 import lombok.ToString;
 
 /**
  * @author xianhu.wang
- * @date 2022年10月20日 5:54 下午
+ * @date 2022年10月20日 5:49 下午
  */
 @Data
 @ToString
-public class NFTTradingInfo extends BaseEntity {
+public class NFTInfo extends BaseEntity {
     /**
      * 交易hash
      */
@@ -21,7 +21,7 @@ public class NFTTradingInfo extends BaseEntity {
     /**
      * 区块高度
      */
-    private String height;
+    private Integer height;
     /**
      * 备注
      */
@@ -35,17 +35,9 @@ public class NFTTradingInfo extends BaseEntity {
      */
     private String tradingType;
     /**
-     * 类别标识
-     */
-    private String categoryId;
-    /**
      * 类别名称
      */
     private String categoryName;
-    /**
-     * NFT标识
-     */
-    private String ntfType;
     /**
      * NFT名称
      */
@@ -63,5 +55,30 @@ public class NFTTradingInfo extends BaseEntity {
      * 源码
      */
     private String code;
+
+    /**
+     * '链上link'
+     */
+    private String chainLink;
+
+    /**
+     * link hash
+     */
+    private String chainLinkHash;
+
+    /**
+     * '链上数据'
+     */
+    private String chainData;
+
+    /**
+     * '数据源'
+     */
+    private String dataOrigin;
+
+    /**
+     * '事件'
+     */
+    private String events;
 
 }

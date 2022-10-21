@@ -31,17 +31,34 @@ public class TianzhouBlockDataSpiderServiceTest extends AppMainTest {
         tianZhouBlockDataSpiderService.spider(url, 1, 1);
     }
 
+
+    @Test
+    public void test3() {
+
+        tianZhouBlockDataSpiderService.spiderSourceBlock(2653307, 2653307);
+    }
+
     @Test
     public void test2() {
 
-        Map<String, Object> parameter = new HashMap<String, Object>(2);
-        parameter.put("denomId", "opf39123ca5db24838220");
-        parameter.put("nftId", "avata6tmrdhvgz7ciss5yyg9fhh6yq7i");
+//        Map<String, Object> parameter = new HashMap<String, Object>(2);
+//        parameter.put("denomId", "opf39123ca5db24838220");
+//        parameter.put("nftId", "avata6tmrdhvgz7ciss5yyg9fhh6yq7i");
+//
+//        Map<String, String> headers = HeaderUtils.assemblyFinalHead("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/nfts/details", parameter, "get", "/nodejs/nfts/details?denomId=opf39123ca5db24838220&nftId=avata6tmrdhvgz7ciss5yyg9fhh6yq7i");
+//
+//        String response = HttpClientUtil.sendGet("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/nfts/details", headers, parameter);
+        String txHash = "3E51B5B6A9DAC54B8723B73B5DA6E9261714C59DD702C15C5CDF96B3F3C7541D";
 
-        Map<String, String> headers = HeaderUtils.assemblyFinalHead("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/nfts/details", parameter, "get", "/nodejs/nfts/details?denomId=opf39123ca5db24838220&nftId=avata6tmrdhvgz7ciss5yyg9fhh6yq7i");
+        Map<String, Object> parameter = new HashMap<String, Object>(4);
 
-        String response = HttpClientUtil.sendGet("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/nfts/details", headers, parameter);
+        Map<String, String> headers = HeaderUtils.assemblyFinalHead("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/txs/" + txHash + "",
+                parameter, "get", "/nodejs/txs/" + txHash + "");
+
+        String response = HttpClientUtil.sendGet("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/txs/" + txHash + "", headers, parameter);
 
         System.out.println(response);
     }
+
+
 }

@@ -8,4 +8,5 @@ public interface WenChangDataSpiderService {
 
     boolean spider(String url, Integer start,Integer end);
 
+    boolean spiderSourceBlock(Integer heightStart, Integer heightEnd);
 }

@@ -1,4 +1,4 @@
-package org.libra.entity;
+package org.libra.bsn.entity;
 
 import lombok.Data;
 import lombok.ToString;
@@ -21,7 +21,7 @@ public class BaseEntity {
     /**
      * nft标识
      */
-    private String ntfType;
+    private String ntfId;
 
     private Timestamp gmtModify;
     private Integer occurTime;
