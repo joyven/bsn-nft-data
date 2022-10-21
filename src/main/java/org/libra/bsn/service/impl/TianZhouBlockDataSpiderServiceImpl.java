@@ -56,6 +56,7 @@ public class TianZhouBlockDataSpiderServiceImpl implements WenChangDataSpiderSer
                 if (!StringUtils.isNotBlank(response) || !response.contains(DATA)
                         || !response.contains(CODE)) {
                     // 进行下一个高度
+                    logger.warn("height={} not find data", i);
                     break;
                 }
                 JSONObject jsonObject = JSONObject.parseObject(response);
@@ -63,13 +64,14 @@ public class TianZhouBlockDataSpiderServiceImpl implements WenChangDataSpiderSer
                     JSONObject data = jsonObject.getJSONObject(DATA);
                     if (data == null || !data.containsKey(DATA) || data.getJSONArray(DATA).size() == 0) {
                         // 进行下一个高度
+                        logger.warn("height={} find data is end", i);
                         break;
                     }
                     JSONArray jsonArray = data.getJSONArray(DATA);
                     for (Object object : jsonArray) {
                         JSONObject tempObj = JSONObject.parseObject(object.toString());
                         // 提交解析列表入库任务
-                         ThreadPoolUtils.NFT_PARSE_POOL.submit(() -> tianZhouBlockDataParseService.parseNftTradingInfo(tempObj));
+                        ThreadPoolUtils.NFT_PARSE_POOL.submit(() -> tianZhouBlockDataParseService.parseNftTradingInfo(tempObj));
 
                     }
                 }
