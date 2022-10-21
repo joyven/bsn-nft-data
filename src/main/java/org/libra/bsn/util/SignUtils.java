@@ -45,7 +45,6 @@ public class SignUtils {
                 path + " " + httpVersion;
         String key = s1 + s2;
 
-        System.out.println(content);
         SecretKeySpec keySpec = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
         Mac mac = Mac.getInstance("HmacSHA256");
         mac.init(keySpec);

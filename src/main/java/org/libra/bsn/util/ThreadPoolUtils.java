@@ -2,6 +2,7 @@ package org.libra.bsn.util;
 
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory;
 
+import java.sql.Timestamp;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -27,11 +28,19 @@ public class ThreadPoolUtils {
     /**
      * nft详情线程池
      */
-    public static final ThreadPoolExecutor NFT_PARSE_INFO_POOL = new ThreadPoolExecutor(
+    public static final ThreadPoolExecutor NFT_SUBMIT_POOL = new ThreadPoolExecutor(
             2, 2, 0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>(5000),
-            new CustomizableThreadFactory("NFT_INFO_POOL"));
+            new CustomizableThreadFactory("NFT_SUBMIT_POOL"));
 
+
+    /**
+     * nft图片下载
+     */
+    public static final ThreadPoolExecutor NFT_IMG_DOWNLOAD_POOL = new ThreadPoolExecutor(
+            2, 2, 0L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<>(5000),
+            new CustomizableThreadFactory("NFT_IMG_DOWNLOAD_POOL"));
 }
 
 

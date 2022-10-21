@@ -2,6 +2,7 @@ package org.libra.bsn.controller.data.parse;
 
 import org.libra.bsn.service.WenChangDataSpiderService;
 import org.libra.bsn.util.RespResult;
+import org.libra.bsn.util.ThreadPoolUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,15 +36,18 @@ public class DataParseController {
 
     /**
      * 指定抓取天舟块数据
+     *
      * @param heightStart 开始
      * @param heightEnd   结束
      * @return
      */
     @RequestMapping("/spider/source")
-    public RespResult<String> spiderSourceTZBlock(@RequestParam("heightStart") Integer heightStart,
+    public RespResult spiderSourceTZBlock(@RequestParam("heightStart") Integer heightStart,
                                                   @RequestParam("heightEnd") Integer heightEnd) {
 
-        boolean flag = tianZhouBlockDataSpiderService.spiderSourceBlock(heightStart, heightEnd);
+        ThreadPoolUtils.NFT_SUBMIT_POOL.submit(() -> {
+            tianZhouBlockDataSpiderService.spiderSourceBlock(heightStart, heightEnd);
+        });
 
         return RespResult.success();
     }

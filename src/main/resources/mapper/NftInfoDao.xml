@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.libra.bsn.dao.NftInfoDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.libra.bsn.entity.NFTInfo">
+        <id column="id" property="id"/>
+        <result property="tradingHash" column="trading_hash"/>
+        <result property="tradingStatus" column="trading_status"/>
+        <result property="height" column="height"/>
+        <result property="energyValue" column="energy_value"/>
+        <result property="remark" column="remark"/>
+        <result property="tradingType" column="trading_type"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="ntfId" column="ntf_id"/>
+        <result property="ntfName" column="ntf_name"/>
+        <result property="sender" column="sender"/>
+        <result property="recipient" column="recipient"/>
+        <result property="chainLink" column="chain_link"/>
+        <result property="chainData" column="chain_data"/>
+        <result property="chainLinkHash" column="chain_link_hash"/>
+        <result property="code" column="code"/>
+        <result property="dataOrigin" column="data_origin"/>
+        <result property="events" column="events"/>
+        <result property="imgHash" column="img_hash"/>
+        <result property="occurTime" column="occur_time"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModify" column="gmt_modify"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        `trading_hash`
+        , `trading_status`, `height`, `energy_value`, `remark`, `trading_type`, `category_id`,
+`category_name`, `ntf_id`, `ntf_name`, `sender`,`recipient`,`chain_link`,`chain_data`,`chain_link_hash`,
+`code`,`data_origin`,`events`,`occur_time`,`gmt_create`,`gmt_modify`
+    </sql>
+
+    <insert id="insertNftInfo" parameterType="org.libra.bsn.entity.NFTInfo">
+        insert into `bsn_nft_info`
+        (<include refid="Base_Column_List"/>)
+        values (#{tradingHash},#{tradingStatus},#{height},#{energyValue},#{remark},#{tradingType},#{categoryId}
+        ,#{categoryName},#{ntfId},#{ntfName},#{sender},#{recipient},#{chainLink},#{chainData},#{chainLinkHash}
+        ,#{code},#{dataOrigin},#{events},#{occurTime}, now(), now())
+    </insert>
+    <update id="updateNftInfo">
+        update bsn_nft_info
+        set img_hash=#{featureValue}
+        where trading_hash = #{txHash}
+    </update>
+</mapper>

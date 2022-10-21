@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.libra.bsn.dao.NftTaringInfoDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.libra.bsn.entity.NFTTradingInfo">
+        <id column="id" property="id"/>
+        <result property="tradingHash" column="trading_hash"/>
+        <result property="tradingType" column="trading_type"/>
+        <result property="ntfName" column="ntf_name"/>
+        <result property="amount" column="amount"/>
+        <result property="height" column="height"/>
+        <result property="energyValue" column="energy_value"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="ntfId" column="ntf_id"/>
+        <result property="sender" column="sender"/>
+        <result property="recipient" column="recipient"/>
+        <result property="dataOrigin" column="data_origin"/>
+        <result property="occurTime" column="occur_time"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modify" property="gmtModify"/>
+
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        `trading_hash`
+        , `trading_type`, `ntf_name`, `amount`, `height`, `energy_value`, `category_id`,
+`ntf_id`, `sender`, `recipient`, `data_origin`,`occur_time`,`gmt_create`,`gmt_modify`
+    </sql>
+    <insert id="insertNftTradingInfo" parameterType="org.libra.bsn.entity.NFTTradingInfo">
+        insert into `bsn_nft_trading_info`
+        (<include refid="Base_Column_List"/>)
+        values (#{tradingHash},#{tradingType},#{ntfName},#{amount},#{height},#{energyValue},#{categoryId},
+                #{ntfId},#{sender},#{recipient},#{dataOrigin},#{occurTime}, now(), now())
+    </insert>
+
+
+</mapper>

@@ -80,6 +80,7 @@ public class TianZhouBlockDataSpiderServiceImpl implements WenChangDataSpiderSer
                     e.printStackTrace();
                 }
                 pageNum++;
+                logger.warn("pageNum={}",pageNum);
             }
         }
 

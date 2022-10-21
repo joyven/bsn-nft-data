@@ -20,7 +20,7 @@ CREATE TABLE `bsn_txs_data`
 
 
 -- nft交易记录
-CREATE TABLE `bsn_nft_trading`
+CREATE TABLE `bsn_nft_trading_info`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `ntf_id`       varchar(128) COMMENT 'NFT标识',

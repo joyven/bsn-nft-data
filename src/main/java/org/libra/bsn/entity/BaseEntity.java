@@ -24,7 +24,7 @@ public class BaseEntity {
     private String ntfId;
 
     private Timestamp gmtModify;
-    private Integer occurTime;
+    private Timestamp occurTime;
     private Timestamp gmtCreate;
 
 }

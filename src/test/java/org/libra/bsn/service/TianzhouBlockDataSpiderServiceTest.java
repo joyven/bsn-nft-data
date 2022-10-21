@@ -3,12 +3,17 @@ package org.libra.bsn.service;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.libra.bsn.AppMainTest;
+import org.libra.bsn.dao.NftInfoDao;
+import org.libra.bsn.dao.NftTaringInfoDao;
+import org.libra.bsn.entity.NFTInfo;
+import org.libra.bsn.entity.NFTTradingInfo;
 import org.libra.bsn.util.HeaderUtils;
 import org.libra.bsn.util.HttpClientUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.net.MalformedURLException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +29,22 @@ public class TianzhouBlockDataSpiderServiceTest extends AppMainTest {
     @Autowired
     private WenChangDataSpiderService tianZhouBlockDataSpiderService;
 
+    @Autowired
+    private NftInfoDao nftInfoDao;
+    @Autowired
+    private NftTaringInfoDao nfttaringInfoDao;
+
+    @Test
+    public void  test4(){
+
+        NFTInfo nftInfo = new NFTInfo();
+        NFTTradingInfo nftTradingInfo = new NFTTradingInfo();
+        nftTradingInfo.setNtfName("1");
+//        nftInfo.setEvents("1");
+//        nftInfo.setOccurTime(new Timestamp(1666312218*1000L));
+//        nftInfoDao.insertNftInfo(nftInfo);
+        nfttaringInfoDao.insertNftTradingInfo(nftTradingInfo);
+    }
     @Test
     public void test() {
         String url = "https://backend.tianzhou.wenchang.bianjie.ai/nodejs/nfts";

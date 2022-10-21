@@ -81,4 +81,9 @@ public class NFTInfo extends BaseEntity {
      */
     private String events;
 
+    /**
+     * 图片hash
+     */
+    private String imgHash;
+
 }

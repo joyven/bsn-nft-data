@@ -1,10 +1,18 @@
 package org.libra.bsn.util;
 
+import lombok.Data;
+import lombok.ToString;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+
 /**
  * @author xianhu.wang
  * @date 2022年10月14日 10:34 上午
  */
-public class RespResult<T> {
+@Data
+@ToString
+public class RespResult<T> implements Serializable {
 
     private Integer code;
     private String message;
@@ -31,5 +39,6 @@ public class RespResult<T> {
     public static <T> RespResult<T> error(Integer code, String message, T data) {
         return new RespResult<T>(code, message, data);
     }
+
 
 }
