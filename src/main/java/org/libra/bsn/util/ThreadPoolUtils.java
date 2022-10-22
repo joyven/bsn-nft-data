@@ -29,7 +29,7 @@ public class ThreadPoolUtils {
      * nft详情线程池
      */
     public static final ThreadPoolExecutor NFT_SUBMIT_POOL = new ThreadPoolExecutor(
-            2, 2, 0L, TimeUnit.MILLISECONDS,
+            5, 5, 0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>(5000),
             new CustomizableThreadFactory("NFT_SUBMIT_POOL"));
 
@@ -38,7 +38,7 @@ public class ThreadPoolUtils {
      * nft图片下载
      */
     public static final ThreadPoolExecutor NFT_IMG_DOWNLOAD_POOL = new ThreadPoolExecutor(
-            2, 2, 0L, TimeUnit.MILLISECONDS,
+            5, 5, 0L, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>(5000),
             new CustomizableThreadFactory("NFT_IMG_DOWNLOAD_POOL"));
 }
