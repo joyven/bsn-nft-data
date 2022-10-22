@@ -43,10 +43,25 @@
         values (#{tradingHash},#{tradingStatus},#{height},#{energyValue},#{remark},#{tradingType},#{categoryId}
         ,#{categoryName},#{ntfId},#{ntfName},#{sender},#{recipient},#{chainLink},#{chainData},#{chainLinkHash}
         ,#{code},#{dataOrigin},#{events},#{occurTime}, now(), now())
+        ON DUPLICATE KEY UPDATE trading_hash=#{tradingHash}
     </insert>
     <update id="updateNftInfo">
         update bsn_nft_info
         set img_hash=#{featureValue}
         where trading_hash = #{txHash}
     </update>
+    <delete id="delete">
+        delete from bsn_nft_trading_info
+        where id =#{id}
+    </delete>
+    <select id="selectData" resultType="java.lang.String">
+       SELECT
+a.trading_hash from (
+SELECT trading_hash ,COUNT(trading_hash) as num  FROM bsn_nft_trading_info as d GROUP BY `trading_hash` having `num`>1
+)as a
+    </select>
+    <select id="select" resultType="java.lang.Integer">
+
+        SELECT id from bsn_nft_trading_info WHERE trading_hash=#{txhash} limit 1
+    </select>
 </mapper>

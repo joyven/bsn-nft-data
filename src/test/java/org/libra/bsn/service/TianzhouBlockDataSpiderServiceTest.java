@@ -15,6 +15,7 @@ import javax.annotation.Resource;
 import java.net.MalformedURLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.libra.bsn.constant.BSNConstants.CODE;
@@ -34,17 +35,45 @@ public class TianzhouBlockDataSpiderServiceTest extends AppMainTest {
     @Autowired
     private NftTaringInfoDao nfttaringInfoDao;
 
+
+
+    /**
+     *
+     */
     @Test
-    public void  test4(){
+    public void test6() {
+        NFTInfo nftInfo = new NFTInfo();
+        nftInfo.setTradingHash("E589F57534A18C0163E4F07EEF19423DE50CDD3ECF3DA9D52B3558D64776FD87");
+        nftInfoDao.insertNftInfo(nftInfo);
+
+
+    }
+
+    /**
+     * 处理重复数据
+     */
+    @Test
+    public void test5() {
+        List<String> txhash = nftInfoDao.selectData();
+
+        for (String tx : txhash) {
+            Integer id = nftInfoDao.select(tx);
+            nftInfoDao.delete(id);
+        }
+    }
+
+    @Test
+    public void test4() {
 
         NFTInfo nftInfo = new NFTInfo();
         NFTTradingInfo nftTradingInfo = new NFTTradingInfo();
-        nftTradingInfo.setNtfName("1");
+        nftTradingInfo.setTradingHash("E589F57534A18C0163E4F07EEF19423DE50CDD3ECF3DA9D52B3558D64776FD87");
 //        nftInfo.setEvents("1");
 //        nftInfo.setOccurTime(new Timestamp(1666312218*1000L));
 //        nftInfoDao.insertNftInfo(nftInfo);
         nfttaringInfoDao.insertNftTradingInfo(nftTradingInfo);
     }
+
     @Test
     public void test() {
         String url = "https://backend.tianzhou.wenchang.bianjie.ai/nodejs/nfts";

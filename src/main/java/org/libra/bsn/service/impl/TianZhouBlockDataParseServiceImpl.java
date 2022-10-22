@@ -17,6 +17,7 @@ import org.libra.bsn.util.ThreadPoolUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -123,6 +124,7 @@ public class TianZhouBlockDataParseServiceImpl implements TianZhouBlockDataParse
         // nftInfo入库
         nftInfoDao.insertNftInfo(nftInfo);
 
+
         if (BSNConstants.TRANSFER_NFT.equals(msgs.getString(BSNConstants.TYPE))) {
             NFTTradingInfo nftTradingInfo = new NFTTradingInfo();
             nftTradingInfo.setSender(msg.getString(BSNConstants.SENDER));
@@ -139,6 +141,7 @@ public class TianZhouBlockDataParseServiceImpl implements TianZhouBlockDataParse
             nftTradingInfo.setAmount(getRandomRedPacketBetweenMinAndMax());
             // nftTradingInfo 入库
             nfttaringInfoDao.insertNftTradingInfo(nftTradingInfo);
+
         }
 
         logger.info("当前txHash={},处理完成", origin.getString(BSNConstants.TX_HASH));

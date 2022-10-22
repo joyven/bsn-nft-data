@@ -33,6 +33,8 @@
         (<include refid="Base_Column_List"/>)
         values (#{tradingHash},#{tradingType},#{ntfName},#{amount},#{height},#{energyValue},#{categoryId},
                 #{ntfId},#{sender},#{recipient},#{dataOrigin},#{occurTime}, now(), now())
+
+        ON DUPLICATE KEY UPDATE trading_hash=#{tradingHash}
     </insert>
 
 

@@ -84,7 +84,7 @@ public class TianZhouBlockDataSpiderServiceImpl implements WenChangDataSpiderSer
                 }
                 try {
                     // 每次休眠10s
-                    TimeUnit.MILLISECONDS.sleep(1500);
+                    TimeUnit.MILLISECONDS.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
