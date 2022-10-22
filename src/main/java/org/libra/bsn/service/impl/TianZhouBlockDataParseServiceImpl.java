@@ -59,7 +59,7 @@ public class TianZhouBlockDataParseServiceImpl implements TianZhouBlockDataParse
 
         // 每次休眠100ms
         try {
-            TimeUnit.MILLISECONDS.sleep(50);
+            TimeUnit.MILLISECONDS.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
