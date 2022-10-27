@@ -42,14 +42,17 @@ public class TianZhouBlockDataSpiderServiceImpl implements WenChangDataSpiderSer
 
         for (int i = heightStart; i <= heightEnd; i++) {
             // 获取一个高度内所有数据
-            int pageNum = 1;
+            int limit = 100;
             while (true) {
                 Map<String, Object> parameter = new HashMap<String, Object>(4);
-                parameter.put("pageNum", pageNum);
-                parameter.put("pageSize", 10);
+//                parameter.put("pageNum", pageNum);
+//                parameter.put("pageSize", 10);
+                parameter.put("limit", limit);
                 parameter.put("height", i);
                 Map<String, String> headers = HeaderUtils.assemblyFinalHead("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/txs/blocks",
-                        parameter, "get", "/nodejs/txs/blocks?pageNum=" + pageNum + "&pageSize=10&height=" + i + "");
+                        parameter, "get", "/nodejs/txs/blocks?limit=" + limit + "&height=" + i + "");
+//      Map<String, String> headers = HeaderUtils.assemblyFinalHead("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/txs/blocks",
+//                        parameter, "get", "/nodejs/txs/blocks?pageNum=" + pageNum + "&pageSize=10&height=" + i + "");
 
                 String response = HttpClientUtil.sendGet("https://backend.tianzhou.wenchang.bianjie.ai/nodejs/txs/blocks", headers, parameter);
 
@@ -88,7 +91,7 @@ public class TianZhouBlockDataSpiderServiceImpl implements WenChangDataSpiderSer
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                pageNum++;
+                //   limit += 100;
             }
         }
 
